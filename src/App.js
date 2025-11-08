@@ -6,11 +6,22 @@ import Timer from "./Timer.js";
 import Hello from "./Hello.js"; 
 
 class App extends React.Component {
+  constructor(){
+    super()
+    this.state={
+      title:"helllo world"
+    }
+  }
+  HandleSetTitle =()=>{
+    this.setState({
+      title:"wellcome back"
+    })
+  }
   render() {
     return (
       <div className="main">
-        <Hello />
-        <Timer />
+        <Hello title={this.state.title} />
+        <Timer HandleSetTitle={this.HandleSetTitle} />
       </div>
     );
   }
