@@ -20,8 +20,8 @@ class App extends React.Component {
   render() {
     return (
       <div className="main">
-        <Hello title={this.state.title} />
-        <Timer HandleSetTitle={this.HandleSetTitle} />
+        <Hello title={this.state.title}/>
+        <Timer x={this.HandleSetTitle}/>
       </div>
     );
   }
