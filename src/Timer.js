@@ -83,6 +83,12 @@ class Timer extends React.Component {
           >
             reset
           </span>
+          <span
+            className="action_button reset_burtton"
+            onClick={this.props.HandleSetTitle}
+          >
+            change
+          </span>
         </div>
       </>
     );
