@@ -1,42 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 
 import "./style.css";
 import Timer from "./Timer.js";
 import Hello from "./Hello.js";
 
-// class App extends React.Component {
-//   constructor(){
-//     super()
-//     this.state={
-//       title:"helllo world"
-//     }
-//   }
-//   HandleSetTitle =()=>{
-//     this.setState({
-//       title:"wellcome back"
-//     })
-//   }
-//   render() {
-//     return (
-//       <div className="main">
-//         <Hello title={this.state.title}/>
-//         <Timer x={this.HandleSetTitle}/>
-//       </div>
-//     );
-//   }
-// }
-
 const App = () => {
   const [title, setTitle] = useState("hello world");
+  const [isLight, setIsLight] = useState(false);
 
-  const HandleSetTitle = () => {
-    setTitle("welcome back");
+  useEffect(() => {
+    console.log(useEffect); //  مقادیری که میخاهیم برای اولین بار اجرا بشن اینجا نوشته میشه
+    return () => {
+      // و اگر  بخایم بعد از بسته شدن اتفاق بیفتند به ریترن
+    };
+  }, [isLight]); //حالا اگر قرار باشه با تغییر استیت اتفاق بیفتن باید اینحا لیستشون کنیم
+
+  const HandleSetIsLight = () => {
+    setIsLight(!isLight);
   };
   return (
-    <div className="main">
+    <div className="main" style={{ background: isLight ? "white" : "black" }}>
       <Hello title={title} />
-      <Timer HandleSetTitle={HandleSetTitle} />
+      <Timer isLight={isLight} HandleSetIsLight={HandleSetIsLight} />
     </div>
   );
 };
