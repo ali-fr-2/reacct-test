@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import "./style.css";
+import TimeList from "./TimeList";
 
 var interval;
 
@@ -53,6 +54,15 @@ class Timer extends React.Component {
       hour: 0,
     });
   };
+  HandleSaveTime = () => {
+    let s = this.state.second;
+    let m = this.state.minute;
+    let h = this.state.hour;
+    let newTime = `${h > 9 ? h : "0" + h} : ${m > 9 ? m : "0" + m} : ${s > 9 ? h : "0" + s}`
+    // میشه یه آرایه رو ریخت تو یه ارایه دیگه 
+    this.props.setTimeArr([...this.props.timeArr , newTime])
+    // ...it called spread operator
+  };
 
   render() {
     let s = this.state.second;
@@ -60,10 +70,12 @@ class Timer extends React.Component {
     let h = this.state.hour;
     return (
       <>
-        <h2 className="timer">
-          {`${h > 9 ? h : "0"+h} : ${m > 9 ? m : "0"+m} : ${s > 9 ? h : "0"+s}` }
+        <h2 className="timer" onClick={this.HandleSaveTime}>
+          {`${h > 9 ? h : "0" + h} : ${m > 9 ? m : "0" + m} : ${
+            s > 9 ? h : "0" + s
+          }`}
         </h2>
-        
+
         <div className="button_box">
           <span
             className="action_button start_burtton"
@@ -86,13 +98,15 @@ class Timer extends React.Component {
           <span
             className="action_button reset_burtton"
             onClick={this.props.HandleSetIsLight}
-            style={{background:this.props.isLight ? "black" :"white",
-              color:this.props.isLight ? "white" : "black"
+            style={{
+              background: this.props.isLight ? "black" : "white",
+              color: this.props.isLight ? "white" : "black",
             }}
           >
             {this.props.isLight ? "dark" : "light"}
           </span>
         </div>
+        <TimeList>{this.props.timeArr}</TimeList>
       </>
     );
   }
