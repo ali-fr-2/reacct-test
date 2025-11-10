@@ -1,12 +1,17 @@
-// import { useContext } from "react"
-// import { TestContext } from "./testContext"
-// style={{color:context}}
+import { useContext } from "react"
+import { TestContext } from "./testContext"
 
 
 const Item =(props)=>{
-    // const context = useContext(TestContext);
+
+    const context = useContext(TestContext);
+
+    const handleDeleteItem = (e)=>{
+        // alert(e.target.innerHTML)
+        context.setTimeArr(context.timeArr.filter(t=>t =! e.target.innerHTML))
+    }
     return(
-        <div className="time_item" >
+        <div className="time_item"  onClick={handleDeleteItem}>
             {props.children}
         </div>
     )

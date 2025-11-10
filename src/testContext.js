@@ -1,5 +1,8 @@
 import { createContext } from "react";
 
-export const TestContext = createContext([]);
+export const TestContext = createContext({
+    timeArr : [],
+    setTimeArr : ()=>{}
+});
 // اگره به صورت 
 // export default بنویسی باید تو فایل مورد نظر  اکولاد نذاری همون عین بقیه که اکسپورت کردی

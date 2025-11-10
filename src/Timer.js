@@ -59,10 +59,7 @@ class Timer extends React.Component {
     });
   };
   HandleSaveTime = () => {
-    let s = this.state.second;
-    let m = this.state.minute;
-    let h = this.state.hour;
-    let newTime = `${h > 9 ? h : "0" + h} : ${m > 9 ? m : "0" + m} : ${s > 9 ? h : "0" + s}`
+    let newTime = document.querySelector('.timer').innerHTML;
     // میشه یه آرایه رو ریخت تو یه ارایه دیگه 
     this.context.setTimeArr([...this.context.timeArr , newTime])
     // ...it called spread operator
@@ -110,7 +107,6 @@ class Timer extends React.Component {
             {this.props.isLight ? "dark" : "light"}
           </span>
         </div>
-        {/* <TimeList>{this.context.timeArr}</TimeList> */}
       </>
     );
   }
