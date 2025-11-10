@@ -5,11 +5,12 @@ import "./style.css";
 import Timer from "./Timer.js";
 import Hello from "./Hello.js";
 import TimeList from "./TimeList.jsx";
+import {TestContext} from "./testContext.js"
 
 const App = () => {
   const [title, setTitle] = useState("hello world");
   const [isLight, setIsLight] = useState(false);
-  const [timeArr, setTimeArr] = useState(["",""]);
+  const [timeArr, setTimeArr] = useState(["", ""]);
 
   useEffect(() => {
     console.log(useEffect); //  مقادیری که میخاهیم برای اولین بار اجرا بشن اینجا نوشته میشه
@@ -22,16 +23,22 @@ const App = () => {
     setIsLight(!isLight);
   };
   return (
-    <div className="main" style={{ background: isLight ? "white" : "black" }}>
-      <Hello title={title} />
-      <Timer 
-      timeArr={timeArr}
-      setTimeArr={setTimeArr}
-      isLight={isLight} 
-      HandleSetIsLight={HandleSetIsLight} />
-      {/* اگر به صورت تگ باز و بسته ارسال شودذ باید به صوردت چیلدرن دریافت شود */}
-
-    </div>
+    <TestContext.Provider value={{
+      timeArr:timeArr,
+      setTimeArr:setTimeArr
+    }}>
+      <div className="main" style={{ background: isLight ? "white" : "black" }}>
+        <Hello title={title} />
+        <Timer
+          // timeArr={timeArr}
+          // setTimeArr={setTimeArr}
+          isLight={isLight}
+          HandleSetIsLight={HandleSetIsLight}
+        />
+        <TimeList/>
+        {/* اگر به صورت تگ باز و بسته ارسال شودذ باید به صوردت چیلدرن دریافت شود */}
+      </div>
+    </TestContext.Provider>
   );
 };
 

@@ -1,8 +1,9 @@
-import React from "react";
+import React , {Component} from "react";
 import ReactDOM from "react-dom/client";
 
 import "./style.css";
 import TimeList from "./TimeList";
+import {TestContext} from "./testContext";
 
 var interval;
 
@@ -16,6 +17,9 @@ class Timer extends React.Component {
       isStart: false,
     };
   }
+
+  static contextType= TestContext
+
   StartInterval = () => {
     if (this.state.isStart === false) {
       this.setState({
@@ -60,7 +64,7 @@ class Timer extends React.Component {
     let h = this.state.hour;
     let newTime = `${h > 9 ? h : "0" + h} : ${m > 9 ? m : "0" + m} : ${s > 9 ? h : "0" + s}`
     // میشه یه آرایه رو ریخت تو یه ارایه دیگه 
-    this.props.setTimeArr([...this.props.timeArr , newTime])
+    this.context.setTimeArr([...this.context.timeArr , newTime])
     // ...it called spread operator
   };
 
@@ -70,7 +74,7 @@ class Timer extends React.Component {
     let h = this.state.hour;
     return (
       <>
-        <h2 className="timer" onClick={this.HandleSaveTime}>
+        <h2 className="timer" onClick={this.HandleSaveTime} >
           {`${h > 9 ? h : "0" + h} : ${m > 9 ? m : "0" + m} : ${
             s > 9 ? h : "0" + s
           }`}
@@ -106,7 +110,7 @@ class Timer extends React.Component {
             {this.props.isLight ? "dark" : "light"}
           </span>
         </div>
-        <TimeList>{this.props.timeArr}</TimeList>
+        {/* <TimeList>{this.context.timeArr}</TimeList> */}
       </>
     );
   }
