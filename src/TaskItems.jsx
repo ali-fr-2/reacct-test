@@ -3,7 +3,8 @@ import { taskContext } from "./TaskContext";
 
 const TaskItems = () => {
   const { taskItems, setTaskItems } = useContext(taskContext);
-  return (
+  if (taskItems.length) {
+      return (
     <ul className="list-group m-0 p-0 mt-2">
       {taskItems.map((t) => (
         <li
@@ -23,6 +24,11 @@ const TaskItems = () => {
       ))}
     </ul>
   );
+  }
+  else{
+    return <h4 className="mt-4 text-center text-danger">none job add</h4>
+  }
+
 };
 
 export default TaskItems;
