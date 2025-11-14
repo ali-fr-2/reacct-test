@@ -1,41 +1,43 @@
-import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom/client";
-
-import "./style.css";
-import Timer from "./Timer.js";
-import Hello from "./Hello.js";
-import TimeList from "./TimeList.jsx";
-import {TestContext} from "./testContext.js"
+import React, { useState } from "react";
+import TopForm from "./TopForm";
+import TaskItems from "./TaskItems";
+import { taskContext } from "./TaskContext";
 
 const App = () => {
-  const [title, setTitle] = useState("hello world");
-  const [isLight, setIsLight] = useState(false);
-  const [timeArr, setTimeArr] = useState(["", ""]);
+  const [taskItems, setTaskItems] = useState([
+    {
+      id: 1,
+      title: "کار شماره 1",
+      done: false,
+    },
+    {
+      id: 4,
+      title: "کار شماره 2",
+      done: true,
+    },
+    {
+      id: 3,
+      title: "کار شماره 3",
+      done: false,
+    },
+  ]);
 
-  useEffect(() => {
-    console.log(useEffect); //  مقادیری که میخاهیم برای اولین بار اجرا بشن اینجا نوشته میشه
-    return () => {
-      // و اگر  بخایم بعد از بسته شدن اتفاق بیفتند به ریترن
-    };
-  }, [isLight]); //حالا اگر قرار باشه با تغییر استیت اتفاق بیفتن باید اینحا لیستشون کنیم
-
-  const HandleSetIsLight = () => {
-    setIsLight(!isLight);
-  };
   return (
-    <TestContext.Provider value={{
-      timeArr,
-      setTimeArr
-    }}>
-      <div className="main" style={{ background: isLight ? "white" : "black" }}>
-        <Hello title={title} />
-        <Timer
-          isLight={isLight}
-          HandleSetIsLight={HandleSetIsLight}
-        />
-        <TimeList/>
+    <div className="container w-100 h-100 p-3">
+      <div className="row h-100 justify-content-center align-align-items-start">
+        <div className="col-12 col-md-8 col-lg-6 bg-light shadow rounded-3 p-3 h_fit">
+          <taskContext.Provider
+            value={{
+              taskItems,
+              setTaskItems,
+            }}
+          >
+            <TopForm />
+            <TaskItems />
+          </taskContext.Provider>
+        </div>
       </div>
-    </TestContext.Provider>
+    </div>
   );
 };
 
