@@ -15,6 +15,7 @@ const TopForm = () => {
       ...taskItems,
       { id: Math.random(), title: task, done: false },
     ]);
+    setTask("")
   };
   // سه نقطه یعنی هر چیزی از قبل داری رو حفظ کن و حالا بعدش که کاما میزاریم یه چیز جدیدم بهش اضافه میکنیم
   return (
