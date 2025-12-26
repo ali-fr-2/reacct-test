@@ -5,6 +5,7 @@ import Posts from './posts/Posts';
 import style from './style.module.css'
 import Todos from './todos/Todos';
 import Users from './users/Users';
+import { Route, Routes } from 'react-router-dom';
 
 const Content = ()=>{
 
@@ -24,10 +25,16 @@ const Content = ()=>{
             <i className={`${style.menu_button} fas fa-bars text-dark m-2 pointer`} 
             onClick={handleShowMenu}
             ></i>
-            <Users/>
-            <Posts/>
-            <Gallery/>
-            <Todos/>
+            <Routes>
+                <Route path='/' element={<Users/>}/>
+                <Route path='/posts' element={<Posts/>}/>
+                <Route path='/gallery' element={<Gallery/>}/>
+                <Route path='/todos' element={<Todos/>}/>
+            </Routes>
+            
+               
+                
+                
         </div>
     )
 
