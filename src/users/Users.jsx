@@ -1,8 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import style from "../style.module.css";
 
 const Users = () => {
+  const navigate = useNavigate();
+
   return (
     <div className={`${style.item_content} mt-5 p-4 container-fluid`}>
       <h4 className="text-center">مدیریت کاربران</h4>
@@ -39,10 +41,8 @@ const Users = () => {
             <td>qasemB</td>
             <td>mahdicmptr@gmail.com</td>
             <td>
-              <Link to="/users/add/2">
-              {/* اسنجا با 2 یه پارامتر ارسال میکنیم  */}
-                <i className="fas fa-edit text-warning mx-2 pointer"></i>
-              </Link>
+              <i className="fas fa-edit text-warning mx-2 pointer"onClick={()=>{navigate("/users/add/2")}}></i>
+
               <i className="fas fa-trash text-danger mx-2 pointer"></i>
             </td>
           </tr>

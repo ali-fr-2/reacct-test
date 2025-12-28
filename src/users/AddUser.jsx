@@ -1,10 +1,11 @@
-import React from "react";
-import { useParams, Outlet } from "react-router";
+import React, { use } from "react";
+import { useParams, Outlet, useNavigate } from "react-router";
 import style from "../style.module.css";
 
 const AddUser = () => {
   const { UserId } = useParams();
-//   یوز پارامز یک ابجکت با استفاده از پارامتر هایی که برای صفحه ارسال شده برای ما بر میگردونه 
+  const navigate = useNavigate();
+  //   یوز پارامز یک ابجکت با استفاده از پارامتر هایی که برای صفحه ارسال شده برای ما بر میگردونه
 
   return (
     <div className={`${style.item_content} mt-5 p-4 container-fluid container`}>
@@ -54,7 +55,7 @@ const AddUser = () => {
           </div>
 
           <div className="col-12 text-start">
-            <button type="button" class="btn btn-danger ms-2">
+            <button type="button" class="btn btn-danger ms-2"onClick={()=>{navigate(-1)}} >
               بازگشت
             </button>
             <button type="submit" class="btn btn-primary">
