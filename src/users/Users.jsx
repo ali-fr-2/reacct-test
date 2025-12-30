@@ -10,14 +10,71 @@ const Users = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("https://jsonplaceholder.typicode.com/users")
-      .then((res) => {
-        setUsers(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+
+    // const func=()=>{
+    //   return new Promise((resolve,reject)=>{
+    //     console.log(1)
+    //     setTimeout(() => {
+    //       console.log(2)
+    //       resolve(true)
+    //     }, 1000);
+    //   })
+    // }
+
+    // جایگزین پرامیس ها می تواند اسینک و اویت باشد زیرا وقتی  در پروزه های بزرگ زیاد می شوند  اصطلاحا توی جهنم کالبک ها گیر میکنیم 
+
+
+    // اون متدی که قراره توش یه پرامیس رو صدا بزنیم و ازش استفاده کنیم حتما باید یه اسینک باشه 
+    // const test= async()=>{
+      // اون جایی که میخایم مقدار برگشتی پرامیس رو بگیریم از اویت استفاده میکنیم یعنی صبر کن تا بره و برگرده 
+   
+      //   const res=await func()
+
+    //   if (res){
+    //     console.log(3);
+        
+    //   }
+    // }
+
+    // test() 
+
+
+    const prom=(id)=>{
+      return axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)
+    }
+
+    const func = async (id)=>{
+      const res =await prom(id);
+      console.log(res.data);
+
+      
+      console.log(id);
+    }
+
+    for (const item of[1,2,3,4,5,6]){
+      func(item)
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // axios
+    //   .get("https://jsonplaceholder.typicode.com/users")
+    //   .then((res) => {
+    //     setUsers(res.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   }, []);
 
   const HandleDelete = (itemId) => {
@@ -69,7 +126,7 @@ const Users = () => {
           </thead>
           <tbody>
             {users.map((u) => (
-              <tr>
+              <tr key={u.id}>
                 <td>{u.id}</td>
                 <td>{u.name}</td>
                 <td>{u.username}</td>
