@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import style from "../style.module.css";
 import swal from "sweetalert";
+import axios from "axios";
 
 const Users = () => {
   const navigate = useNavigate();
+
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("https://jsonplaceholder.typicode.com/users")
+      .then((res) => {
+        setUsers(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   const HandleDelete = (itemId) => {
     swal({
       title: "حذف رکورد !",
@@ -41,40 +56,46 @@ const Users = () => {
           </Link>
         </div>
       </div>
-      <table className="table bg-light shadow">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>نام</th>
-            <th>نام کاربری</th>
-            <th>ایمیل</th>
-            <th>عملیات</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>qasem</td>
-            <td>qasemB</td>
-            <td>mahdicmptr@gmail.com</td>
-            <td>
-              <i
-                className="fas fa-edit text-warning mx-2 pointer"
-                onClick={() => {
-                  navigate("/users/add/2", {
-                    state: { x: "react", y: "project" },
-                  });
-                }}
-              ></i>
+      {users.length ? (
+        <table className="table bg-light shadow">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>نام</th>
+              <th>نام کاربری</th>
+              <th>ایمیل</th>
+              <th>عملیات</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((u) => (
+              <tr>
+                <td>{u.id}</td>
+                <td>{u.name}</td>
+                <td>{u.username}</td>
+                <td>{u.email}</td>
+                <td>
+                  <i
+                    className="fas fa-edit text-warning mx-2 pointer"
+                    onClick={() => {
+                      navigate("/users/add/2", {
+                        state: { x: "react", y: "project" },
+                      });
+                    }}
+                  ></i>
 
-              <i
-                className="fas fa-trash text-danger mx-2 pointer"
-                onClick={() => HandleDelete(1)}
-              ></i>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                  <i
+                    className="fas fa-trash text-danger mx-2 pointer"
+                    onClick={() => HandleDelete(1)}
+                  ></i>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <h4 className="text-center text-info">لطفا صبر نمایید</h4>
+      )}
     </div>
   );
 };
